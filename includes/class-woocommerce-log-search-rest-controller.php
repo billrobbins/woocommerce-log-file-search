@@ -19,6 +19,15 @@ class WooCommerce_Log_Search_REST_Controller {
 	}
 
 	/**
+	 * Sets the directory to search for log files.
+	 *
+	 * @return string
+	 */
+	private function get_log_directory(): string {
+		return defined( WC_LOG_DIR ) ? WC_LOG_DIR : WP_CONTENT_DIR . '/uploads/wc-logs/';
+	}
+
+	/**
 	 * Registers our REST API route for searching log files.
 	 *
 	 * @return void
@@ -52,7 +61,7 @@ class WooCommerce_Log_Search_REST_Controller {
 	 * @return string  content.
 	 */
 	public function get_log_file( object $request ): string {
-		$log_directory_path = defined( WC_LOG_DIR ) ? WC_LOG_DIR : WP_CONTENT_DIR . '/uploads/wc-logs/';
+		$log_directory_path = $this->get_log_directory();
 		$file               = $request['file'];
 		$content            = file_get_contents( $log_directory_path . $file );
 
@@ -67,7 +76,7 @@ class WooCommerce_Log_Search_REST_Controller {
 	 */
 	public function search_log_files( object $request ): array {
 
-		$log_directory_path = defined( WC_LOG_DIR ) ? WC_LOG_DIR : WP_CONTENT_DIR . '/uploads/wc-logs/';
+		$log_directory_path = $this->get_log_directory();
 		$files              = scandir( $log_directory_path );
 		$string             = $request['search'];
 		$result             = array();
