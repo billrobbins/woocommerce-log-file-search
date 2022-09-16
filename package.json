@@ -18,7 +18,7 @@
 		"start": "wp-scripts start",
 		"test:e2e": "wp-scripts test-e2e",
 		"test:unit": "wp-scripts test-unit-js",
-		"build-zip": "npm run build && mkdir ./woocommerce-log-file-search && cp -r ./woocommerce-log-file-search.php ./rwoocommerce-log-file-search/woocommerce-log-file-search.php && cp -r ./includes ./woocommerce-log-file-search/includes && cp -r ./build ./woocommerce-log-file-search/build && zip -r ./woocommerce-log-file-search.zip ./woocommerce-log-file-search && rm -r ./woocommerce-log-file-search"
+		"build-zip": "npm run build && mkdir ./woocommerce-log-file-search && cp -r ./woocommerce-log-file-search.php ./woocommerce-log-file-search/woocommerce-log-file-search.php && cp -r ./includes ./woocommerce-log-file-search/includes && cp -r ./build ./woocommerce-log-file-search/build && zip -r ./woocommerce-log-file-search.zip ./woocommerce-log-file-search && rm -r ./woocommerce-log-file-search"
 	},
 	"devDependencies": {
 		"@woocommerce/dependency-extraction-webpack-plugin": "1.6.0",
