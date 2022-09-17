@@ -2,30 +2,31 @@
  * Internal dependencies
  */
 import { getFile } from '../utilities/DataStore';
+import { RenderResult } from './renderResult';
 
 export const SearchResults = (props) => {
 	const results = props.results;
 
 	const handleClick = (result) => {
 		props.setIsSearching(true);
-		if (result === 'Sorry, no results found.') {
-			props.setIsSearching(false);
-			return;
-		}
 		getFile({ file: result })
 			.then((resp) => props.setFileContent(resp))
-			.then(props.setIsSearching(false));
+			.then(
+				setTimeout(() => {
+					props.setIsSearching(false);
+				}, '200')
+			);
 	};
 
 	return (
-		<ul>
+		<ol>
 			{results.map((result, index) => (
-				<li key={index}>
-					<button onClick={() => handleClick(result)}>
-						{result}
-					</button>
-				</li>
+				<RenderResult
+					key={index}
+					result={result}
+					handleClick={handleClick}
+				/>
 			))}
-		</ul>
+		</ol>
 	);
 };
