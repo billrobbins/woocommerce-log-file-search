@@ -8,11 +8,27 @@
     .button {
         position: relative;
         top: 2px;
+        text-align: left;
     }
+
+}
+
+pre.snippet {
+  background: rgba(0, 0, 0, 0.07);
+  white-space: pre-wrap;
+  padding: 5px 10px;
 }
 
 #log-search {
     width: 100%;
+
+    ol {
+      max-height: 40vh;
+      overflow: auto;
+      margin-left: 0;
+      padding-left: 2em;
+  }
+
 }
 
 .log-file-viewer {
@@ -29,9 +45,11 @@
 }
 
 #log-search li button {
+    font-size: 15px;
     border: none;
     color: #2271b1;
     cursor: pointer;
+    text-align: left;
 }
 
 .form-log-search {

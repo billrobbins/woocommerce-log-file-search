@@ -87,7 +87,10 @@ class WooCommerce_Log_Search_REST_Controller {
 					if ( ! is_dir( $value ) && strstr( $value, '.log' ) ) {
 						$content = file_get_contents( $log_directory_path . $value );
 						if ( false !== strpos( $content, $string ) ) {
-							$result[] = $value;
+							$result[] = array(
+								'file'     => $value,
+								'snippets' => $this->get_log_snippet( $value, $string ),
+							);
 						}
 					}
 				}
@@ -95,9 +98,39 @@ class WooCommerce_Log_Search_REST_Controller {
 		}
 
 		if ( count( $result ) === 0 ) {
-			return array( 'Sorry, no results found.' );
+			$result[] = array(
+				'file'     => array(),
+				'snippets' => array(),
+			);
 		}
-		return $result;
+
+		return array_reverse( $result );
+
+	}
+
+	/**
+	 * Loads a snippet of each occurence of the specified string in the log file.
+	 *
+	 * @param  string $file The file name of the currently searched file.
+	 * @param  string $string The string to locate in the passed filename.
+	 * @return array  The list of files that match the search term.
+	 */
+	public function get_log_snippet( $file, $string ) : array {
+
+		$matches = array();
+
+		$handle = @fopen( $this->get_log_directory() . $file, 'r' );
+		if ( $handle ) {
+			while ( ! feof( $handle ) ) {
+				$buffer = fgets( $handle );
+				$line   = strpos( $buffer, $string );
+				if ( false !== $line ) {
+					$matches[] = $buffer;
+				}
+			}
+			fclose( $handle );
+			return $matches;
+		}
 
 	}
 
