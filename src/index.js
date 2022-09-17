@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { render } from 'react-dom';
 
 /**
@@ -16,6 +16,9 @@ const RootComponent = () => {
 	const [results, setResults] = useState([]);
 	const [fileContent, setFileContent] = useState('');
 	const [isSearching, setIsSearching] = useState(false);
+	const [file, setFile] = useState('');
+
+	useEffect(() => {}, [file]);
 
 	return (
 		<>
@@ -29,9 +32,12 @@ const RootComponent = () => {
 					results={results}
 					setIsSearching={setIsSearching}
 					setFileContent={setFileContent}
+					setFile={setFile}
 				/>
 			)}
-			{fileContent && <FileDisplay fileContent={fileContent} />}
+			{fileContent && (
+				<FileDisplay fileContent={fileContent} file={file} />
+			)}
 		</>
 	);
 };

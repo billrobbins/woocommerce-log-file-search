@@ -11,6 +11,7 @@ export const SearchResults = (props) => {
 		props.setIsSearching(true);
 		getFile({ file: result })
 			.then((resp) => props.setFileContent(resp))
+			.then(props.setFile(result))
 			.then(
 				setTimeout(() => {
 					props.setIsSearching(false);

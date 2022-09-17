@@ -3,6 +3,7 @@ export const FileDisplay = (props) => {
 	return (
 		<div className="log-file-viewer">
 			<style>{styles}</style>
+			<p>File: {props.file}</p>
 			<pre>{props.fileContent}</pre>
 		</div>
 	);
